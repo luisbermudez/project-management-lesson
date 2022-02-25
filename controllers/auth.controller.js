@@ -75,13 +75,13 @@ exports.loginAuth = async (req, res) => {
               maxAge: 1000 * 60 * 60 * 24,
               httpOnly: true,
               sameSite: true,
-              secure: true
+              secure: req.secure || req.headers['x-forwarded-proto'] === 'https'
             });
 
             res.cookie("signature", signature, {
               httpOnly: true,
               sameSite: true,
-              secure: true,
+              secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
             });
 
             res.status(200).json({ message: 'Credentials have been authenticated.' });
