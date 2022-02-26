@@ -74,11 +74,13 @@ exports.loginAuth = async (req, res) => {
             res.cookie("headload", `${header}.${payload}`, {
               maxAge: 1000 * 60 * 60 * 24,
               httpOnly: true,
+              SameSite: None,
               secure: true
             });
 
             res.cookie("signature", signature, {
               httpOnly: true,
+              SameSite: None,
               secure: true,
             });
 
