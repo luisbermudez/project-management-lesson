@@ -71,18 +71,24 @@ exports.loginAuth = async (req, res) => {
             );
             const [header, payload, signature] = token.split('.');
 
-            res.cookie("headload", `${header}.${payload}`, {
+            res.cookie("headload", `${header}.${payload}`,
+            {
               maxAge: 1000 * 60 * 60 * 24,
               httpOnly: true,
-              sameSite: 'secure',
+              sameSite: true,
               secure: true
-            });
+            }
+            );
 
-            res.cookie("signature", signature, {
-              httpOnly: true,
-              sameSite: 'secure',
-              secure: true,
-            });
+            res.cookie(
+              "signature",
+              signature,
+              {
+                httpOnly: true,
+                sameSite: true,
+                secure: true,
+              }
+            );
 
             res.status(200).json({ message: 'Credentials have been authenticated.' });
         } else {
